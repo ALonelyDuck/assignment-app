@@ -17,11 +17,17 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AssignmentsComponent,
+    AssignmentDetailComponent,
+    AddAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,9 @@ import { MatListModule } from '@angular/material/list';
     MatNativeDateModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

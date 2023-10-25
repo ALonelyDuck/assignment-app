@@ -6,15 +6,23 @@
     color: red;
 }
 
-.form {
-    display:flex;
-    flex-direction: column;
-    margin:5px;
-}
-
 .ListDevoir {
     display:flex;
     flex-direction: column;
-    margin:10px;
-    
+    margin:10px;    
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+}
+
+.btnAjouter {
+    align-self: flex-end;
+}
+
+hr {
+    width: 100%;
+    color: black;
 }

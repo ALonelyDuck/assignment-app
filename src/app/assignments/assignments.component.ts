@@ -11,23 +11,39 @@ export class AssignmentsComponent implements OnInit {
   constructor() { }
 
   titre:string = "Mon application sur les Assignments !";
-  ajoutActive:boolean = false;
-  nomDevoir:string= "";
-  dateRendu!:Date;
+  assignmentSelectionne!:Assignment;
+  formVisible:boolean = false;
+  detailVisible:boolean = false;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.ajoutActive = true;
-    }, 2000);
+
   }
 
-  onSubmit() {
-    const newAssignment = new Assignment();
-    newAssignment.nom = this.nomDevoir;
-    newAssignment.rendu = false;
-    newAssignment.dateDeRendu = this.dateRendu;
+  assignmentClique(assignment:Assignment) {
+    this.assignmentSelectionne = assignment;
+    this.detailVisible = true;
+  }
 
-    this.assignments.push(newAssignment);
+  onAddAssignmentBtnClick() {
+    this.formVisible = true;
+  }
+
+  onNouvelAssignment(event:Assignment) {
+    this.assignments.push(event);
+    this.formVisible = false;
+  }
+
+  onDeleteAssignment(event:Assignment) {
+    const index = this.assignments.indexOf(event);
+    if (index >= 0) {
+      this.assignments.splice(index, 1);
+    }
+
+    this.detailVisible = false;
+
+    if (this.assignments.length === 0) {
+      this.formVisible = true;
+    }
   }
 
   assignments: Assignment[] = [
@@ -37,7 +53,7 @@ export class AssignmentsComponent implements OnInit {
       dateDeRendu: new Date('2021-09-01')
     },
     {
-      nom: 'TP2 sur Angular, un joli gestionnaier de devoirs (Assignments)',
+      nom: 'TP2 sur Angular, un joli gestionnaire de devoirs (Assignments)',
       rendu: false,
       dateDeRendu: new Date('2021-09-15')
     },
@@ -47,5 +63,4 @@ export class AssignmentsComponent implements OnInit {
       dateDeRendu: new Date('2021-10-01')
     }
   ];
-
 }
