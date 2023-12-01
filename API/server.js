@@ -9,6 +9,8 @@ mongoose.set('debug', true);
 
 // Get the default connection depending on the user
 const config = require('./config');
+const environment = process.env.NODE_ENV || 'dev';
+const mongoConfig = config[environment];
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
 const uri = 'mongodb+srv://'+mongoConfig.mongoUsername+':'+mongoConfig.mongoPassword+'@projetangular.i9oo62s.mongodb.net/assignments?retryWrites=true&w=majority';
