@@ -3,6 +3,20 @@
     flex-direction: column;
 }
 
-.btnSupprimer {
+.btn {
     align-self: flex-end;
+    display: flex;
+    align-items: center;
+}
+
+.btnEditer {
+    margin-right: 10px; /* Adjust the value as needed */
+}
+
+/* .btnEditer {
+    margin-right: 2%;
+} */
+
+mat-card {
+    margin: 2%;
 }

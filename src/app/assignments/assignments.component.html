@@ -9,33 +9,41 @@
     </ng-template>
 </div> -->
 
-<main class="container" *ngIf="!formVisible">
-    <button class="btnAjouter" mat-flat-button color="accent" (click)="onAddAssignmentBtnClick()">
-        Ajouter Assignment
-    </button>
+<main class="container">
+
+    <div class="btnAjouter">
+        <a [routerLink]="isLog() ? '/add': null" [style.pointer-events]="isLog() ? 'auto' : 'none'">
+            <button class="btnAjouter" mat-flat-button color="accent" [disabled]="!isLog()">
+                Ajouter Assignment
+            </button>
+        </a>
+    </div>
 
     <mat-list *ngFor="let assignment of assignments; let last = last">
+        <nav><a [routerLink]="isLog() ? '/assignment/' + assignment.id: null"
+                [style.pointer-events]="isLog() ? 'auto' : 'none'">
 
-        <h3 mat-subheader>{{assignment.dateDeRendu | date}}</h3>
-    
-        <mat-list-item (click)="assignmentClique(assignment)">
-            <p appRendu *ngIf="assignment.rendu; else nonsoumis" [ngClass]="{'rendu':assignment.rendu}"> 
-                Devoir intitulé {{assignment.nom}} a été rendu.
-            </p>
-    
-            <ng-template #nonsoumis>
-                Le devoir {{assignment.nom}} n'a pas été rendu.
-            </ng-template>
-    
-            <mat-divider *ngIf="!last" [inset]="true"></mat-divider>
-    
-        </mat-list-item>
+                <mat-card>
+                    <mat-card-content>
+                        <mat-card-title>{{assignment.dateDeRendu | date}}</mat-card-title>
+                        <mat-card-subtitle>
+                            <p appRendu *ngIf="assignment.rendu; else nonsoumis" [ngClass]="{'rendu':assignment.rendu}">
+                                Devoir intitulé {{assignment.nom}} a été rendu.
+                            </p>
+                            <ng-template #nonsoumis>
+                                Le devoir {{assignment.nom}} n'a pas été rendu.
+                            </ng-template>
+                        </mat-card-subtitle>
+                    </mat-card-content>
+                </mat-card>
+            </a></nav>
+
+        <!-- <mat-divider *ngIf="!last" [inset]="true"></mat-divider> -->
     </mat-list>
 
-    <hr>
-
-    <app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)" *ngIf="detailVisible">
-    </app-assignment-detail>
+    <!-- <app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)"
+        *ngIf="detailVisible">
+    </app-assignment-detail> -->
 </main>
 
-<app-add-assignment (nouvelAssignment)="onNouvelAssignment($event)" *ngIf="formVisible"></app-add-assignment>
+<!-- <app-add-assignment (nouvelAssignment)="onNouvelAssignment($event)" *ngIf="formVisible"></app-add-assignment> -->

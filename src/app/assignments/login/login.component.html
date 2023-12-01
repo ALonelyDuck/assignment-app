@@ -1,0 +1,29 @@
+<div class="container">
+
+    <mat-card class="container_inner">
+        <h1>Login</h1>
+
+        <form [formGroup]="login" ngForm class="form" (ngSubmit)="onLogin()" #formupdate>
+
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" placeholder="Username" name="username" required>
+                <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type='password' placeholder="Password" name="password" required>
+                <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+
+            <div class="btn">
+                <button mat-raised-button color="primary" type="submit" [disabled]="login.invalid"><mat-icon>login</mat-icon>Login</button>
+                <button mat-raised-button color="primary" (click)="login.reset(); logOut()"><mat-icon>logout</mat-icon>Logout</button>
+            </div>
+
+        </form>
+    </mat-card>
+
+</div>

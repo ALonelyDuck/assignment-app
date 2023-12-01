@@ -4,5 +4,43 @@ mat-sidenav-container {
 
 mat-sidenav {
     width: auto;
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
+}
+
+mat-toolbar {
+    flex: 1 1 auto;
+}
+
+.Login {
+    color: white !important;
+}
+
+.btnNavbar {
+    margin-right: 1%;
+}
+
+.btnHome {
+    margin-right: 2%;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+mat-list-item > mat-icon, p {
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+p > mat-icon {
+    margin-right: 10px;
 }
