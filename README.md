@@ -26,3 +26,9 @@ Etudiant :
 - 3 Collections Assignments, Matieres et Users (aucune donnée codé en dur)
 - Il est possible de discuter par messages (Etudiant et Enseignant) sous chaques Assignment
 - Un enseignant ne peut pas noter un assignment non rendu
+
+## Bugs :
+- Utilisation de la Pagination + des Filtres en même temps
+- Problème de Date lors de l'insertion d'un grand nombre d'assignments
+- Generate Assignments (1000) ne marche pas avec l'API sur Render
+- DeleteAllAssignments ne fonctionne pas 
