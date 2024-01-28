@@ -67,12 +67,16 @@ export class AddAssignmentComponent implements OnInit {
         this.assignmentsService.addAssignments(newAssignment)
             .subscribe(message => console.log(message));
 
+        // location.reload();
 
         if (this.activeUser.role === 'etudiant') {
             this.router.navigate(['/home']);
         }
         else {
-            this.router.navigate(['/table-view']);
+            this.router.navigateByUrl('/table-view', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/table-view']);
+            }); 
+            // this.router.navigate(['/table-view']);
         }
     }
 

@@ -10,7 +10,8 @@
             {{remarque}}
         </p>
 
-        <mat-checkbox *ngIf="!assignmentTransmis.rendu && (isLogSync() || isAdmin())" [disabled]="isAdmin()" (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox>
+        <mat-checkbox *ngIf="!assignmentTransmis.rendu && (isLogSync() || isAdmin())" [disabled]="isAdmin()"
+            (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox>
 
         <div class="bottom">
             <div class="center">
@@ -68,19 +69,19 @@
         </div>
     </mat-card-content>
 
-    <mat-card-actions>
-        <div class="bottom">
-            <div class="center">
-                <mat-form-field>
-                    <input matInput type="text" [(ngModel)]="commentaire" placeholder="..."
-                        [ngModelOptions]="{standalone: true}">
-                </mat-form-field>
-            </div>
 
-            <div class="push">
-                <button mat-raised-button color="primary"
-                    (click)="submitComment(); $event.preventDefault();">Envoyer</button>
-            </div>
+    <div class="bottom">
+        <div class="center2">
+            <mat-form-field>
+                <input matInput type="text" [(ngModel)]="commentaire" placeholder="..."
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
         </div>
-    </mat-card-actions>
+
+        <div class="push2">
+            <button mat-raised-button color="primary"
+                (click)="submitComment(); $event.preventDefault();">Envoyer</button>
+        </div>
+    </div>
+
 </mat-card>

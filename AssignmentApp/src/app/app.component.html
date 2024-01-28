@@ -25,10 +25,10 @@
             <button type="button" mat-button [disabled]="!isLog()" routerLink="/table-view">
                 Table View
             </button>
-            <button type="button" mat-button [disabled]="!isLog()" (onclick)="populateDBAssignments()">
+            <button type="button" mat-button [disabled]="!isLog()" (click)="populateDBAssignments()">
                 Generate Assignments
             </button>
-            <button type="button" mat-button [disabled]="!isLog()" (onclick)="deleteDBAssignments()">
+            <button type="button" mat-button [disabled]="!isLog()" (click)="deleteDBAssignments()">
                 Delete All Assignments
             </button>
             <button type="button" mat-button [disabled]="!isLog()" routerLink="/login">

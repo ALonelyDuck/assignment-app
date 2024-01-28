@@ -6,6 +6,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-table-view',
@@ -23,9 +24,9 @@ export class TableViewComponent implements OnInit {
 	prevPage = 0;
 	hasPrevPage = false;
 	hasNextPage = false;
-	onlyRendu = false;
 
 	filterValue = '';
+	isRendu = null;
 
 	pageEvent(event: PageEvent) {
 		this.page = event.pageIndex + 1;
@@ -33,9 +34,21 @@ export class TableViewComponent implements OnInit {
 		this.getAssignmentsPagine(this.page, this.limit);
 	}
 
-	announceSortChange($event: Sort) {
-		// Sort the assignments based on the sort event
+	tableSortChange($event: Sort) {
 		this.sortAssignments($event.active, $event.direction);
+	}
+
+	filterRendu(arg: any) {
+		if (arg === 'true') {
+			this.isRendu = true;
+		}
+		else if (arg === 'false') {
+			this.isRendu = false;
+		}
+		else if (arg === 'all') {
+			this.isRendu = null;
+		}
+		this.filterAssignments();
 	}
 
 	sortAssignments(field: string, direction: string) {
@@ -48,16 +61,11 @@ export class TableViewComponent implements OnInit {
 				return 0;
 			}
 		});
-
 		this.dataSource = this.dataSource.filter(assignment => {
 			return assignment.nom.toLowerCase().includes(this.filterValue.toLowerCase()) ||
 				assignment.matiere.toLowerCase().includes(this.filterValue.toLowerCase());
 		});
 	}
-
-	// compare(a: any, b: any, isAsc: boolean) {
-	// 	return (a < b ? -1 : 1) * (isAsc ? 1 : -1);	
-	// }
 
 	rowClicked(row: any): void {
 		console.log('Row clicked');
@@ -65,22 +73,13 @@ export class TableViewComponent implements OnInit {
 	}
 
 	applyFilter(event: Event) {
-		const filterValue = (event.target as HTMLInputElement).value;
-		if (filterValue === '') {
-			this.getAssignmentsPagine(this.page, this.limit);
-		} else {
-			this.assignmentsService.getAssignmentsPagine(this.page, this.limit).subscribe(assignments => {
-				this.dataSource = assignments.filter(assignment => {
-					return assignment.nom.toLowerCase().includes(filterValue.toLowerCase()) ||
-						assignment.matiere.toLowerCase().includes(filterValue.toLowerCase());
-				});
-				this.totalDocs = this.dataSource.length;
-			});
-		}
+		this.filterValue = (event.target as HTMLInputElement).value;
+		this.filterAssignments();
 	}
 
 	displayedColumns: string[] = ['nom', 'matiere', 'dateDeRendu', 'auteur', 'rendu', 'note'];
 	dataSource: Assignment[] = [];
+	assignments: Assignment[] = [];
 
 	constructor(private router: Router, private assignmentsService: AssignmentsService, private authService: AuthService) { }
 
@@ -90,16 +89,29 @@ export class TableViewComponent implements OnInit {
 			this.router.navigate(['/login']);
 		}
 
-		this.getAssignmentsPagine(this.page, this.limit);
+		this.assignmentsService.getAssignmentsPagine(this.page, this.limit).subscribe(
+			data => {
+				this.totalDocs = data.length;
+				this.totalPages = data.length;
+				this.nextPage = data.nextPage;
+				this.prevPage = data.prevPage;
+				this.hasPrevPage = data.hasPrevPage;
+				this.hasNextPage = data.hasNextPage;
+				console.log("Assignments paginés");
+				console.log(data);
+			}
+		);
+		this.assignmentsService.getAssignmentsPagineContent(this.page, this.limit).subscribe(
+			data => {
+				this.assignments = data;
+				this.dataSource = data;
+			}
+		);
 	}
 
 	isLog() {
 		return this.authService.isLogSync();
 	}
-
-	// getAssignments() {
-	// 	this.assignmentsService.getAssignments().subscribe(assignments => this.dataSource = assignments);
-	// }
 
 	getAssignmentsPagine(page: number, limit: number) {
 		this.assignmentsService.getAssignmentsPagine(page, limit).subscribe(
@@ -110,7 +122,6 @@ export class TableViewComponent implements OnInit {
 				this.prevPage = data.prevPage;
 				this.hasPrevPage = data.hasPrevPage;
 				this.hasNextPage = data.hasNextPage;
-				this.onlyRendu = false;
 				console.log("Assignments paginés");
 				console.log(data);
 			}
@@ -120,6 +131,17 @@ export class TableViewComponent implements OnInit {
 				this.dataSource = data;
 			}
 		);
+	}
+
+	filterAssignments() {
+		this.dataSource = this.assignments;
+
+		if (this.isRendu !== null) {
+			this.dataSource = this.dataSource.filter(assignment => {
+				return assignment.rendu === this.isRendu
+			});
+		}
+
 		this.dataSource = this.dataSource.filter(assignment => {
 			return assignment.nom.toLowerCase().includes(this.filterValue.toLowerCase()) ||
 				assignment.matiere.toLowerCase().includes(this.filterValue.toLowerCase());

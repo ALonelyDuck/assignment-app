@@ -16,11 +16,8 @@
                     <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"
                         placeholder="Password" name="password" required>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error>Username or Password incorrect!</mat-error>
                 </mat-form-field>
-
-                <div *ngIf="login.errors?.['unauthenticated']">
-                    Username or Password incorrect!
-                </div>
 
                 <div class="btn">
                     <button mat-raised-button color="primary" type="submit"
@@ -29,12 +26,12 @@
             </form>
         </div>
 
-        <div *ngIf="alreadyLogged">
+        <div *ngIf="alreadyLogged" class="profile">
             <mat-card-title>Profile</mat-card-title>
 
             <img [src]="'https://ui-avatars.com/api/?name=' + UserInitials" width="200" height="200" priority>
 
-            <mat-card-content>
+            <mat-card-content class="profile-content">
                 <mat-divider></mat-divider>
                 <p>Utilisateur : {{ activeUser.username }}</p>
                 <p>Nom : {{ activeUser.prenom }} {{ activeUser.nom }}</p>

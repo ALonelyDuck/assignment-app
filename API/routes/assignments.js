@@ -38,7 +38,7 @@ function getAssignmentsLimit(req, res){
         }
 
         res.send(assignments);
-    }).skip(0).limit(limit);
+    }).limit(limit);
 }
 
 function getAssignmentsCount(req, res) {

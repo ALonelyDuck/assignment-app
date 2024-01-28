@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
     }
 
     populateDBAssignments() {
+        console.log("Ajout des Assignments");
         if (this.assignmentsCount >= 500) {
             console.log("Il y a déjà trop d'assignments dans la base de données");
             console.log("Veuillez vider la base de données avant de la remplir à nouveau");

@@ -6,9 +6,9 @@
     <!-- <p>{{nomDevoir}}</p> -->
 
     <mat-form-field>
-        <select matNativeControl [(ngModel)]="nomMatiere" name="matiere" required>
-            <option *ngFor="let matiere of matieres" [value]="matiere.nom" [selected]="matieres[0].nom">{{ matiere.nom }}</option>
-        </select>
+        <mat-select matNativeControl [(ngModel)]="nomMatiere" placeholder="Nom de la matière" name="matiere" required>
+            <mat-option *ngFor="let matiere of matieres" [value]="matiere.nom">{{ matiere.nom }}</mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field>

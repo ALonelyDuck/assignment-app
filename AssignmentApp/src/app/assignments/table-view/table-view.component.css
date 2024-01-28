@@ -61,6 +61,10 @@ table {
     justify-content: space-between;
 }
 
-.filter > *{
-    width: 30%;
+.filter > :first-child {
+    width: 50%;
+}
+
+.filter > :last-child {
+    width: 20%;
 }

@@ -33,7 +33,7 @@ export class AssignmentsComponent implements OnInit {
             this.router.navigate(['/login']);
         }
 
-        this.getAssignments();
+        this.getAssignmentsLimit();
         this.getAssignmentsCount();
     }
 
@@ -46,7 +46,7 @@ export class AssignmentsComponent implements OnInit {
     }
 
     getAssignmentsLimit() {
-        this.assignmentServices.getAssignmentsLimit(10).subscribe(assignments => this.assignments = assignments);
+        this.assignmentServices.getAssignmentsLimit(20).subscribe(assignments => this.assignments = assignments);
     }
 
     getAssignmentsCount() {

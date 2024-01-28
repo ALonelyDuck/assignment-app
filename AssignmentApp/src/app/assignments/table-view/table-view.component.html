@@ -1,26 +1,26 @@
 <mat-card class="parent-card">
     <mat-card-content class="container">
 
-        <mat-card-title>Table View</mat-card-title>
+        <!-- <mat-card-title>Table View</mat-card-title> -->
 
         <div class="filter">
             <mat-form-field>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Nom ou Matière" #input>
             </mat-form-field>
-    
+
             <mat-form-field>
                 <mat-label>Filtre</mat-label>
-                <select matNativeControl>
-                    <option value="all">All</option>
-                    <option value="rendu">Rendu</option>
-                    <option value="nonRendu">Non Rendu</option>
-                </select>
+                <mat-select matNativeControl (selectionChange)="filterRendu($event.value)">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="true">Rendu</mat-option>
+                    <mat-option value="false">Non Rendu</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
 
         <section class="table-container" tabindex="0">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-                (matSortChange)="announceSortChange($event)">
+                (matSortChange)="tableSortChange($event)">
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="nom">
@@ -61,7 +61,7 @@
 
                 <!-- Rendu Column -->
                 <ng-container matColumnDef="note">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by note"> Note
+                    <th mat-header-cell *matHeaderCellDef> Note
                     </th>
                     <td mat-cell *matCellDef="let assignment"> {{ assignment.note }} </td>
                 </ng-container>

@@ -17,7 +17,7 @@ export class LoginComponent {
     users: Users[] = [];
     activeUser: Users | null = null;
     UserInitials: string = '';
-    hide: boolean = false;
+    hide: boolean = true;
 
     login = new FormGroup({
         username: new FormControl('', Validators.required),
@@ -63,15 +63,14 @@ export class LoginComponent {
             if (user) {
                 console.log('Login successful');
                 this.setActiveUser(user);
+                while (this.authService.isLogSync() === false) {
+                    this.isLogSync();
+                }
                 location.reload();
-                // if (user.role === 'etudiant') {
-                //     this.router.navigate(['/home']);
-                // } else if (user.role === 'enseignant') {
-                //     this.router.navigate(['/table-view']);
-                // }
             } else {
                 this.isLogFailed = true;
                 this.login.setErrors({ unauthenticated: true });
+                this.login.reset();
                 console.log('Login failed');
             }
         }
@@ -79,11 +78,9 @@ export class LoginComponent {
 
     logOut() {
         this.authService.logOut();
-        this.alreadyLogged = false;
-        location.reload();
-        this.router.navigate(['/login']);
-        console.log('Logout');
         this.login.reset();
+        this.alreadyLogged = false;
+        console.log('Logout');
     }
 
     isLogSync(): any {
