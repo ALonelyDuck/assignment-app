@@ -18,7 +18,8 @@
 
         <mat-form-field>
             <mat-label>Note</mat-label>
-            <input matInput [(ngModel)]="noteRendu" maxlength="2" type="number" name="note" [value]="noteRendu">
+            <input matInput [(ngModel)]="noteRendu" maxlength="2" type="number" name="note" [value]="noteRendu" [disabled]="!devoirRendu">
+            <mat-hint *ngIf="!devoirRendu">Le devoir n'a pas été rendu</mat-hint>
         </mat-form-field>
 
         <mat-form-field>

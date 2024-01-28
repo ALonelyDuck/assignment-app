@@ -63,11 +63,12 @@ export class LoginComponent {
             if (user) {
                 console.log('Login successful');
                 this.setActiveUser(user);
-                if (user.role === 'etudiant') {
-                    this.router.navigate(['/home']);
-                } else if (user.role === 'enseignant') {
-                    this.router.navigate(['/table-view']);
-                }
+                location.reload();
+                // if (user.role === 'etudiant') {
+                //     this.router.navigate(['/home']);
+                // } else if (user.role === 'enseignant') {
+                //     this.router.navigate(['/table-view']);
+                // }
             } else {
                 this.isLogFailed = true;
                 this.login.setErrors({ unauthenticated: true });
@@ -79,6 +80,7 @@ export class LoginComponent {
     logOut() {
         this.authService.logOut();
         this.alreadyLogged = false;
+        location.reload();
         this.router.navigate(['/login']);
         console.log('Logout');
         this.login.reset();

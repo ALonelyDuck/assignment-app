@@ -3,9 +3,20 @@
 
         <mat-card-title>Table View</mat-card-title>
 
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Nom ou Matière" #input>
-        </mat-form-field>
+        <div class="filter">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Nom ou Matière" #input>
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Filtre</mat-label>
+                <select matNativeControl>
+                    <option value="all">All</option>
+                    <option value="rendu">Rendu</option>
+                    <option value="nonRendu">Non Rendu</option>
+                </select>
+            </mat-form-field>
+        </div>
 
         <section class="table-container" tabindex="0">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
@@ -66,8 +77,8 @@
 
         <div class="bottom">
             <div class="push">
-                <mat-paginator class="paginator" [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]" aria-label="Select page of assignments"
-                    (page)="pageEvent($event)">
+                <mat-paginator class="paginator" [length]="totalDocs" [pageSize]="limit" [pageSizeOptions]="[5, 10, 20]"
+                    aria-label="Select page of assignments" (page)="pageEvent($event)">
                 </mat-paginator>
             </div>
         </div>

@@ -55,3 +55,12 @@ table {
     margin-top: auto;
     /* margin-bottom: auto; */
 }
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter > *{
+    width: 30%;
+}

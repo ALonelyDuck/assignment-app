@@ -10,7 +10,7 @@
             {{remarque}}
         </p>
 
-        <!-- <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox> -->
+        <mat-checkbox *ngIf="!assignmentTransmis.rendu && (isLogSync() || isAdmin())" [disabled]="isAdmin()" (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox>
 
         <div class="bottom">
             <div class="center">
@@ -19,7 +19,7 @@
 
             <div class="push">
                 <button class="btnEditer" mat-flat-button color="accent" (click)="onEditAssignmentBtnClick()"
-                    [disabled]="!isLogSync()">
+                    [disabled]="!isAdmin()">
                     Edit
                 </button>
 

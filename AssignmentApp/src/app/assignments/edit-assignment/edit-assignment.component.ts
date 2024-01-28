@@ -20,6 +20,7 @@ export class EditAssignmentComponent implements OnInit {
     noteRendu!: number;
     ajoutActive: boolean = false;
     description: string;
+    devoirRendu: boolean = false;
 
     constructor(private assignmentsService: AssignmentsService,
         private route: ActivatedRoute,
@@ -68,6 +69,7 @@ export class EditAssignmentComponent implements OnInit {
 
             // Pour pré-remplir le formulaire
 
+            this.devoirRendu = assignment.rendu;
             this.nomDevoir = assignment.nom;
             this.noteRendu = assignment.note;
             this.dateRendu = assignment.dateDeRendu;
