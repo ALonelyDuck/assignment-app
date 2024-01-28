@@ -29,6 +29,8 @@ export class LoginComponent {
     getErrorLoggin = 'Incorrect username or password';
 
     ngOnInit(): void {
+        this.getUsers();
+        
         if (this.authService.isLogSync()) {
             this.alreadyLogged = true;
             this.getActiveUser();
@@ -39,36 +41,52 @@ export class LoginComponent {
         }
     }
 
-    onLogin() {
-        if (this.login.valid) {
-            const username = this.login.value.username;
-            const password = this.login.value.password;
-
-            if (this.authService.logIn(username, password)) {
-                console.log('Login successful')
-                this.router.navigate(['/home']);
-            } else {
-                this.isLogFailed = true;
-                this.login.setErrors({ unauthenticated: true });
-                console.log('Login failed')
-            }
-        }
-    }
-
-    isLogSync(): any {
-        console.log(this.authService.isLogSync())
-        this.authService.isLogSync()
+    getUsers() {
+        this.authService.getUsers().subscribe(users => {this.users = users;});
     }
 
     getActiveUser() {
         this.activeUser = this.authService.getActiveUser();
     }
 
+    setActiveUser(user: Users) {
+        this.authService.setActiveUser(user);
+    }
+
+    logIn() {
+        console.log(this.users);
+        if (this.login.valid) {
+            const username = this.login.value.username;
+            const password = this.login.value.password;
+
+            const user = this.users.find(u => u.username === username && u.password === password);
+            if (user) {
+                console.log('Login successful');
+                this.setActiveUser(user);
+                if (user.role === 'etudiant') {
+                    this.router.navigate(['/home']);
+                } else if (user.role === 'enseignant') {
+                    this.router.navigate(['/table-view']);
+                }
+            } else {
+                this.isLogFailed = true;
+                this.login.setErrors({ unauthenticated: true });
+                console.log('Login failed');
+            }
+        }
+    }
+
     logOut() {
         this.authService.logOut();
         this.alreadyLogged = false;
         this.router.navigate(['/login']);
-        console.log('Logout')
+        console.log('Logout');
+        this.login.reset();
+    }
+
+    isLogSync(): any {
+        console.log(this.authService.isLogSync())
+        this.authService.isLogSync()
     }
 
     get getUsername() { return this.login.get('username'); }

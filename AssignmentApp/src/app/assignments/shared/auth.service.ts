@@ -12,40 +12,24 @@ export class AuthService {
     // activeUser: Users | null = null;
 
     users: Users[] = [];
-    url: 'http://localhost:8010/api/users';
+    url = 'https://angular-assignments-project-api.onrender.com/api/users';
 
     constructor(private http: HttpClient, private cookieService: CookieService) { }
 
     getUsers(): Observable<Users[]> {
-        return this.http.get<Users[]>('http://localhost:8010/api/users');
+        return this.http.get<Users[]>(this.url);
+    }
+
+    setActiveUser(user: Users) {
+        this.cookieService.set('activeUser', JSON.stringify(user));
     }
 
     getActiveUser(): Users {
         return JSON.parse(this.cookieService.get('activeUser'));
     }
 
-    logIn(username: string, password: string): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
-            this.getUsers().subscribe(users => {
-                this.users = users;
-
-                const userExists = this.users.some(user => user.username === username && user.password === password);
-                if (userExists) {
-                    const activeUser = this.users.find(user => user.username === username && user.password === password);
-                    this.cookieService.set('activeUser', JSON.stringify(activeUser));
-                    resolve(true);
-                }
-                else {
-                    resolve(false);
-                }
-            });
-        });
-    }
-
     logOut() {
-        // this.loggedIn = false;
-        // this.activeUser = null;
-        this.cookieService.delete('activeUser'); // Remove activeUser from cookie on logout
+        this.cookieService.delete('activeUser');
     }
 
     isLog(): Promise<boolean> {
@@ -60,9 +44,10 @@ export class AuthService {
         const activeUser = JSON.parse(this.cookieService.get('activeUser'));
         return Promise.resolve(activeUser?.role === 'enseignant');
     }
-    
+
     isAdminSync(): boolean {
         const activeUser = JSON.parse(this.cookieService.get('activeUser'));
         return activeUser?.role === 'enseignant';
     }
 }
+

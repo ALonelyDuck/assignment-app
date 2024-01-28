@@ -51,17 +51,11 @@ export class AddAssignmentComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.dateRendu);
         const newAssignment = new Assignment();
         newAssignment.id = Math.floor(Math.random() * 1000000);
         newAssignment.nom = this.nomDevoir;
         newAssignment.rendu = false;
-        
-        // Add 2 hours to the dateRendu
-        const dateRenduWithAddedHours = new Date(this.dateRendu);
-        dateRenduWithAddedHours.setHours(dateRenduWithAddedHours.getHours() + 2);
-        newAssignment.dateDeRendu = dateRenduWithAddedHours;
-        
+        newAssignment.dateDeRendu = this.dateRendu;
         newAssignment.commentaire = JSON.stringify([]);
         newAssignment.auteur = this.authService.getActiveUser().username;
         newAssignment.matiere = this.nomMatiere;

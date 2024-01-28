@@ -116,11 +116,11 @@ export class AssignmentsService {
 	}
 
     addAssignments(assignment: Assignment): Observable<any> {
-        return this.http.post<Assignment>(this.url, assignment);
+        return this.http.post<Assignment>(this.url + '/api/assignments', assignment);
     }
 
     updateAssignment(assignment: Assignment): Observable<string> {
-        return this.http.put<string>(this.url, assignment);
+        return this.http.put<string>(this.url + '/api/assignments/', assignment);
     }
 
     deleteAssignment(assignment: Assignment): Observable<string> {
@@ -131,7 +131,7 @@ export class AssignmentsService {
             this.assignments.splice(index, 1);
         }
 
-        return this.http.delete<string>(this.url + '/' + assignment._id);
+        return this.http.delete<string>(this.url + '/api/assignments' + '/' + assignment._id);
     }
 
     deleteAllAssignment(): Observable<string> {

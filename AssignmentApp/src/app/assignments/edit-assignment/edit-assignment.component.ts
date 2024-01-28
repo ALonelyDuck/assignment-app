@@ -49,6 +49,7 @@ export class EditAssignmentComponent implements OnInit {
         }
 
         this.getAssignment();
+        this.activeUser = this.getActiveUser();
 
         // console.log("Query Params :");
         // console.log(this.route.snapshot.queryParams);

@@ -3,7 +3,7 @@
         <div *ngIf="!alreadyLogged">
             <mat-card-title>Login</mat-card-title>
 
-            <form [formGroup]="login" ngForm class="form" (ngSubmit)="onLogin()" #formupdate>
+            <form [formGroup]="login" ngForm class="form" (ngSubmit)="logIn()" #formupdate>
 
                 <mat-form-field>
                     <mat-label>Username</mat-label>
