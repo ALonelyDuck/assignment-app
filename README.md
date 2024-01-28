@@ -1,12 +1,18 @@
 # Angular : Rendu Projet
 
-### Nom : COLIN
-### Prénom : Clément
+### COLIN Clément
+### BARRALI Florian
 
-### Nom : BARRALI
-### Prénom : Florian
+## Lien Vidéo et Render dans la boîte de dépôt de COLIN Clément
 
-## Lien Vidéo :
+## Users :
+Enseignant :
+- username : Donati
+- password : Donati
+
+Etudiant :
+- username : User
+- password : User
 
 ## Tâches faites :
 
