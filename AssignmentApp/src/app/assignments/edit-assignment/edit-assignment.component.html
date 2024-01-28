@@ -5,7 +5,7 @@
     <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
 
         <mat-form-field>
-            <input matInput placeholder="Edition du nom"  [(ngModel)]="nomDevoir" name="assignment-name">
+            <input matInput placeholder="Edition du nom" [(ngModel)]="nomDevoir" name="assignment-name">
         </mat-form-field>
 
         <mat-form-field>
@@ -14,6 +14,16 @@
             <mat-datepicker-toggle matSuffix [for]="picker">
             </mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Note</mat-label>
+            <input matInput [(ngModel)]="noteRendu" maxlength="2" type="number" name="note" [value]="noteRendu">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Remarque</mat-label>
+            <textarea matInput [(ngModel)]="description" name="description" maxlength="250">{{assignment.description}}</textarea>
         </mat-form-field>
 
         <button mat-raised-button color="primary" [disabled]="((!nomDevoir) || (!dateRendu))">Sauver</button>

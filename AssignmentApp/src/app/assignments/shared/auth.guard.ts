@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     let authService = inject(AuthService);
     let router = inject(Router);
 
-    return authService.isAdmin().then((authentifie) => {
+    return authService.isLog().then((authentifie) => {
         if (authentifie) {
             console.log("Admin, access granted");
             return true;

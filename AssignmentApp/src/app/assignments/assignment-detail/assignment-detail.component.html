@@ -1,17 +1,86 @@
 <mat-card *ngIf="assignmentTransmis">
-    <mat-card-content class="container">
-        <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-        <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
-        <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox>
+    <mat-card-header>
+        <mat-card-title>{{assignmentTransmis.matiere}} - {{assignmentTransmis.nom}}</mat-card-title>
+        <mat-card-subtitle>Créé par : {{assignmentTransmis.auteur}}</mat-card-subtitle>
+    </mat-card-header>
 
-        <div class="btn">
-            <button class="btnEditer" mat-flat-button color="accent" (click)="onEditAssignmentBtnClick()" [disabled]="!isAdmin()">
-                Edit
-            </button>
+    <mat-card-content class="container_top">
+        <p>{{noteRendu}}</p>
+        <p>
+            {{remarque}}
+        </p>
 
-            <button class="btnSupprimer" mat-flat-button color="accent" (click)="onDeleteAssignmentBtnClick()" [disabled]="!isAdmin()">
-                Delete
-            </button>
+        <!-- <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir rendu</mat-checkbox> -->
+
+        <div class="bottom">
+            <div class="center">
+                <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
+            </div>
+
+            <div class="push">
+                <button class="btnEditer" mat-flat-button color="accent" (click)="onEditAssignmentBtnClick()"
+                    [disabled]="!isLogSync()">
+                    Edit
+                </button>
+
+                <button class="btnSupprimer" mat-flat-button color="accent" (click)="onDeleteAssignmentBtnClick()"
+                    [disabled]="!isAdmin()">
+                    Delete
+                </button>
+            </div>
         </div>
     </mat-card-content>
+
+</mat-card>
+
+<mat-card *ngIf="assignmentTransmis" class="container_bottom">
+    <mat-card-header>
+        <mat-card-title>Commentaires :</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="inner_container_bottom">
+        <div class="scroll">
+            <div *ngIf="messages.length === 0" class="empty">
+                <p>Aucun Commentaires</p>
+            </div>
+            <div *ngFor="let message of messages">
+                <div *ngIf="message.role === 'enseignant'">
+                    <mat-card class="enseignant">
+                        <mat-card-header>
+                            <mat-card-subtitle>{{message.auteur}} - {{message.date}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{message.commentaire}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div *ngIf="message.role === 'etudiant'" class="push">
+                    <mat-card class="etudiant">
+                        <mat-card-header>
+                            <mat-card-subtitle>{{message.auteur}} - {{message.date}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{message.commentaire}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <div class="bottom">
+            <div class="center">
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="commentaire" placeholder="..."
+                        [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+            </div>
+
+            <div class="push">
+                <button mat-raised-button color="primary"
+                    (click)="submitComment(); $event.preventDefault();">Envoyer</button>
+            </div>
+        </div>
+    </mat-card-actions>
 </mat-card>

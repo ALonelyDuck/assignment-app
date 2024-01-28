@@ -1,16 +1,49 @@
-.container {
+.container_top {
     display: flex;
     flex-direction: column;
+    height: auto;
+    margin-top: 2%;
 }
 
-.btn {
-    align-self: flex-end;
+.container_bottom {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    height: auto;
+}
+
+.inner_container_bottom {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: scroll;
+    margin-bottom: 2%;
+    flex-grow: 1;
+}
+
+.inner_container_bottom>mat-card-header {
+    margin-bottom: 8%;
+}
+
+.empty {
+    justify-self: center;
+    align-self: center;
+    margin: auto;
+}
+
+.bottom {
+    display: flex;
+}
+
+.push {
+    margin-left: auto;
+}
+
+.center {
+    margin-top: auto;
 }
 
 .btnEditer {
-    margin-right: 10px; /* Adjust the value as needed */
+    margin-right: 10px;
 }
 
 /* .btnEditer {
@@ -18,5 +51,30 @@
 } */
 
 mat-card {
+    /* bottom */
     margin: 2%;
+}
+
+.send {
+    justify-self: center;
+    /* align-self: center; */
+}
+
+.send>mat-form-field {
+    width: 80%;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.etudiant {
+    text-align: left;
+    align-self: flex-start;
+    width: 50%;
+}
+
+.enseignant {
+    margin-left: auto;
+    justify-self: flex-end;
+    align-self: flex-end;
+    width: 50%;
 }

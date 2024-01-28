@@ -1,8 +1,9 @@
 let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
+// Sort by dateDeRendu par défault
 function getAssignments(req, res){
-    Assignment.find((err, assignments) => {
+    Assignment.find().sort({dateDeRendu: 1}).exec((err, assignments) => {
         if(err){
             res.send(err)
         }
@@ -10,6 +11,45 @@ function getAssignments(req, res){
         res.send(assignments);
     });
 }
+
+function getAssignmentsPagine(req, res){
+    let page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    let startIndex = (page - 1) * limit;
+    let endIndex = page * limit;
+
+    Assignment.find().sort({dateDeRendu: 1}).exec((err, assignments) => {
+        if(err){
+            res.send(err)
+        }
+
+        let paginatedAssignments = assignments.slice(startIndex, endIndex);
+        res.send(paginatedAssignments);
+    });
+}
+
+function getAssignmentsLimit(req, res){
+    // let page = parseInt(req.query.page) || parseInt(1);
+    let limit = parseInt(req.query.limit) || parseInt(10);
+
+    Assignment.find().sort({dateDeRendu: 1}).exec((err, assignments) => {
+        if(err){
+            res.send(err)
+        }
+
+        res.send(assignments);
+    }).skip(0).limit(limit);
+}
+
+function getAssignmentsCount(req, res) {
+    Assignment.countDocuments((err, count) => {
+      if (err) {
+        res.send(err);
+      }
+  
+      res.json(count);
+    });
+  }
 
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
@@ -28,6 +68,11 @@ function postAssignment(req, res){
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
     assignment.rendu = req.body.rendu;
+    assignment.auteur = req.body.auteur;
+    assignment.matiere = req.body.matiere;
+    assignment.note = req.body.note;
+    assignment.commentaire = req.body.commentaire;
+    assignment.description = req.body.description;
 
     console.log("POST assignment reçu :");
     console.log(assignment)
@@ -59,7 +104,6 @@ function updateAssignment(req, res) {
 
 // suppression d'un assignment (DELETE)
 function deleteAssignment(req, res) {
-
     Assignment.findByIdAndRemove(req.params.id, (err, assignment) => {
         if (err) {
             res.send(err);
@@ -68,6 +112,14 @@ function deleteAssignment(req, res) {
     })
 }
 
+function deleteAllAssignments(req, res) {
+    Assignment.deleteMany({}, (err) => {
+        if (err) {
+            res.send(err);
+        }
 
+        res.json({message: 'All assignments deleted'});
+    });
+}
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { getAssignments, getAssignmentsPagine, getAssignmentsCount, getAssignmentsLimit, getAssignment, postAssignment, updateAssignment, deleteAssignment, deleteAllAssignments };

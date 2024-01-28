@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AssignmentsService } from './shared/assignments.service';
 import { Assignment } from './assignments.model';
 import { AuthService } from './shared/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-assignments',
@@ -12,9 +14,11 @@ export class AssignmentsComponent implements OnInit {
 
     titre: string = "Mon application sur les Assignments !";
     assignments!: Assignment[];
+    assignmentsCount: number;
 
     constructor(private assignmentServices: AssignmentsService,
-        private authService: AuthService) { }
+        private authService: AuthService,
+        private router: Router) { }
 
     assignmentSelectionne!: Assignment;
     formVisible: boolean = false;
@@ -22,15 +26,37 @@ export class AssignmentsComponent implements OnInit {
 
     ngOnInit(): void {
         //this.assignments = this.assignmentServices.getAssignments();
+        // this.getAssignmentsLimit();
+
+        if (!this.isLog()) {
+            console.log('Not logged in')
+            this.router.navigate(['/login']);
+        }
+
         this.getAssignments();
+        this.getAssignmentsCount();
+    }
+
+    isLog(): boolean {
+        return this.authService.isLogSync();
     }
 
     getAssignments() {
         this.assignmentServices.getAssignments().subscribe(assignments => this.assignments = assignments);
     }
 
+    getAssignmentsLimit() {
+        this.assignmentServices.getAssignmentsLimit(10).subscribe(assignments => this.assignments = assignments);
+    }
+
+    getAssignmentsCount() {
+        this.assignmentServices.getAssignmentsCount().subscribe(count => {
+            this.assignmentsCount = count;
+        });
+    }
+
     assignmentClique(assignment: Assignment) {
-        if (this.authService.isLog()) {
+        if (this.isLog()) {
             if (this.assignmentSelectionne === assignment) {
                 this.detailVisible = !this.detailVisible;
             } else {
@@ -59,10 +85,5 @@ export class AssignmentsComponent implements OnInit {
         if (this.assignments.length === 0) {
             this.formVisible = true;
         }
-    }
-
-    isLog() {
-        // console.log(this.authService.isLogSync());
-        return this.authService.isLogSync();
     }
 }

@@ -25,7 +25,10 @@
 
                 <mat-card>
                     <mat-card-content>
-                        <mat-card-title>{{assignment.dateDeRendu | date}}</mat-card-title>
+                        <mat-card-title>{{assignment.matiere}} - {{assignment.dateDeRendu | date}}</mat-card-title>
+                        <mat-card-subtitle>
+                            <p>{{assignment.auteur}}</p>
+                        </mat-card-subtitle>
                         <mat-card-subtitle>
                             <p appRendu *ngIf="assignment.rendu; else nonsoumis" [ngClass]="{'rendu':assignment.rendu}">
                                 Devoir intitulé {{assignment.nom}} a été rendu.
@@ -40,6 +43,12 @@
 
         <!-- <mat-divider *ngIf="!last" [inset]="true"></mat-divider> -->
     </mat-list>
+
+    <div class="container_center">
+        <div *ngIf="assignmentsCount === 0" class="center">
+            Aucun Assignment
+        </div>
+    </div>
 
     <!-- <app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)"
         *ngIf="detailVisible">

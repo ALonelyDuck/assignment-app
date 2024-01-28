@@ -1,5 +1,7 @@
 export class Users {
-    login!: string;
+    username!: string;
     password!: string;
-    role!: 'user' | 'admin';
+    role!: 'user' | 'admin' | 'etudiant' | 'enseignant';
+    nom!: string;
+    prenom!: string;
 }

@@ -33,6 +33,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoginComponent } from './assignments/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+
+import { MatSelectModule } from '@angular/material/select';
+import { TableViewComponent } from './assignments/table-view/table-view.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'; 
+
 const MY_DATE_FORMAT = {
     parse: {
         dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
@@ -64,6 +73,9 @@ const routes : Routes = [
     },
     {
         path: 'login', component: LoginComponent
+    },
+    {
+        path: 'table-view', component: TableViewComponent
     }
 ];
 
@@ -75,6 +87,7 @@ const routes : Routes = [
         AddAssignmentComponent,
         EditAssignmentComponent,
         LoginComponent,
+        TableViewComponent,
     ],
     imports: [
         BrowserModule,
@@ -96,7 +109,12 @@ const routes : Routes = [
         MatCheckboxModule,
         RouterModule.forRoot(routes),
         MatSlideToggleModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatSelectModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
     ],
     providers: [
         {
@@ -107,7 +125,8 @@ const routes : Routes = [
         {
             provide: MAT_DATE_FORMATS,
             useValue: MY_DATE_FORMAT
-        }
+        },
+        CookieService
     ],
     bootstrap: [AppComponent]
 })

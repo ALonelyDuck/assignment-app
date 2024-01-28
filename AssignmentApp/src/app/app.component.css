@@ -1,5 +1,5 @@
 mat-sidenav-container {
-    height: calc(205vh - 112vh);
+    height: calc(205vh - 113vh);
 }
 
 mat-sidenav {
@@ -9,6 +9,17 @@ mat-sidenav {
 
 mat-toolbar {
     flex: 1 1 auto;
+}
+
+.mat-sidenav-content{
+    overflow: auto;
+}
+
+.mat-sidenav-content button {
+    display: block;
+    width: 100%;
+    margin: 2px;
+    text-align: left;
 }
 
 .Login {
@@ -35,12 +46,19 @@ a:visited {
     color: inherit;
 }
 
-mat-list-item > mat-icon, p {
+mat-list-item>mat-icon,
+p {
     display: inline-flex;
     vertical-align: middle;
     align-items: center;
 }
 
-p > mat-icon {
+p>mat-icon {
     margin-right: 10px;
+}
+
+#connectMessage {
+    margin-top: 4%;
+    margin-left: 4%;
+    color: red;
 }

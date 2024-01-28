@@ -1,22 +1,41 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <button class="btnNavbar" mat-raised-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
-        <nav class="btnHome"><a routerLink="/home"><button mat-raised-button><mat-icon>home</mat-icon>Home</button></a></nav>
+        <nav class="btnHome">
+            <button mat-raised-button (click)="goHome()"><mat-icon>home</mat-icon>Home</button>
+        </nav>
         <h1>{{title}}</h1>
 
         <span class="spacer"></span>
         <!-- <mat-slide-toggle class="Login" color="primary" (click)="login()">Login</mat-slide-toggle> -->
-        <nav class="Login"><a routerLink="/login"><button mat-raised-button><mat-icon>account_box</mat-icon>Login</button></a></nav>
+        <nav class="Login"><a routerLink="/login"><button mat-raised-button><mat-icon>account_box</mat-icon>{{ isLog() ?
+                    'Profil: ' + activeUser.username : 'Login' }}</button></a></nav>
     </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened" mode="side">   
-        <mat-nav-list class="inline-list">
-            <mat-list-item [disabled]="!isLog()" routerLink="/home"><p><mat-icon>list</mat-icon>List Assignments</p></mat-list-item>
-            <mat-list-item [disabled]="!isLog()" routerLink="/add"><p><mat-icon>add</mat-icon>Add Assignments</p></mat-list-item>
-            <mat-list-item [disabled]="true" routerLink="/"><p><mat-icon>autorenew</mat-icon>Generate Assignments</p></mat-list-item>
-        </mat-nav-list>
+<mat-sidenav-container class="mat-sidenav-container">
+    <mat-sidenav [(opened)]="opened" mode="side" class="mat-sidenav-content">
+        <div>
+            <button type="button" mat-button [disabled]="!isLog()" routerLink="/add">
+                Add Assignments
+            </button>
+            <button type="button" mat-button [disabled]="!isLog()" routerLink="/home">
+                List Assignments
+            </button>
+            <button type="button" mat-button [disabled]="!isLog()" routerLink="/table-view">
+                Table View
+            </button>
+            <button type="button" mat-button [disabled]="!isLog()" (onclick)="populateDBAssignments()">
+                Generate Assignments
+            </button>
+            <button type="button" mat-button [disabled]="!isLog()" (onclick)="deleteDBAssignments()">
+                Delete All Assignments
+            </button>
+            <button type="button" mat-button [disabled]="!isLog()" routerLink="/login">
+                Profile
+            </button>
+            <p id="connectMessage" *ngIf="!isLog()"><i>Need to connect</i></p>
+        </div>
     </mat-sidenav>
 
     <mat-sidenav-content>

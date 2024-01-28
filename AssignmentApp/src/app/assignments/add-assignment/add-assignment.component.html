@@ -1,4 +1,4 @@
-<form ngForm class="form" (submit)="onSubmit(); assignmentForm.reset()" #assignmentForm>
+<form ngForm class="form" (submit)="assignmentForm.valid && onSubmit()" #assignmentForm="ngForm">
     <mat-form-field>
         <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir" required>
     </mat-form-field>
@@ -6,11 +6,22 @@
     <!-- <p>{{nomDevoir}}</p> -->
 
     <mat-form-field>
+        <select matNativeControl [(ngModel)]="nomMatiere" name="matiere" required>
+            <option *ngFor="let matiere of matieres" [value]="matiere.nom" [selected]="matieres[0].nom">{{ matiere.nom }}</option>
+        </select>
+    </mat-form-field>
+
+    <mat-form-field>
         <input matInput [(ngModel)]="dateRendu" [matDatepicker]="picker" name="date" placeholder="Date de rendu"
             required>
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="description" name="description" maxlength="250"></textarea>
     </mat-form-field>
 
     <!-- <button mat-stroked-button color="primary" [disabled]="!ajoutActive">
