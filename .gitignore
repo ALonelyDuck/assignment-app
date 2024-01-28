@@ -32,7 +32,6 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/API/config.js
 /AssignmentApp/.angular
 /.angular
 /.angular/cache
