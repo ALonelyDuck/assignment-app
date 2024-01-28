@@ -1,24 +1,22 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/6epMQcoo)
-# Angular : rendu n°2
-Repository où déposer le projet n°2 Angular
+# Angular : Rendu Projet
 
-### Nom[^1] : COLIN
+### Nom : COLIN
+### Prénom : Clément
 
-### Prénom[^2] : Clément
+### Nom : BARRALI
+### Prénom : Florian
 
-## A faire[^3]
-- [X] Suivre le cours jusqu'à la page 180
-- [X] Intégrer toolbar et navbar du rendu n°1
-- [X] Identification par **login/password**
-  - ajouter un tableau de login/password/role (avec rôle qui est soit **user** soit **admin**) dans le service d'authentification
-  - modifier le code pour avoir `isLogged()` **ET** `isAdmin()` au lieu de juste `isAdmin()`
-- [X] Au lieu du slider `LogIn`, ajouter un bouton connecter (avec une *mat-icon* adaptée) qui amène à un composant avec un formulaire de connexion
-- [X] Gestion des droits :
-  - L'admin peut éditer et effacer les assignment
-  - Le user peut voir le détail des assignment
-  - Si on n'est pas logué on ne peut ni voir le détail, ni éditer
+## Lien Vidéo :
 
+## Tâches faites :
 
-[^1]: à remplir
-[^2]: à remplir
-[^3]: vous pouvez cocher les tâches qui ont été faites en utilisant la syntaxe `[x]` dans le markdown
+- Tous les TPs (1 à 6)
+- 1000 assignments
+- Assignments avec auteur, matiere, note, description, commentaires
+- Vue étudiante avec List Assignments des TPs, Vue Enseignant avec Table Angular
+- Table Angular avec Pagination, Trie et filtre
+- Login avec cookies et Profile
+- Projet hébergé sur Render (Back + Front)
+- 3 Collections Assignments, Matieres et Users (aucune donnée codé en dur)
+- Il est possible de discuter par messages (Etudiant et Enseignant) sous chaques Assignment
+- Un enseignant ne peut pas noter un assignment non rendu
