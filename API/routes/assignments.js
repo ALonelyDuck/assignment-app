@@ -30,15 +30,15 @@ function getAssignmentsPagine(req, res){
 
 function getAssignmentsLimit(req, res){
     // let page = parseInt(req.query.page) || parseInt(1);
-    let limit = parseInt(req.query.limit) || parseInt(10);
+    // let limit = parseInt(req.query.limit) || parseInt(10);
 
-    Assignment.find().sort({dateDeRendu: 1}).exec((err, assignments) => {
+    Assignment.find().limit(20).exec((err, assignments) => {
         if(err){
             res.send(err)
         }
 
         res.send(assignments);
-    }).limit(limit);
+    });
 }
 
 function getAssignmentsCount(req, res) {
