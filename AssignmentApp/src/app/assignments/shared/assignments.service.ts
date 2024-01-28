@@ -87,32 +87,32 @@ export class AssignmentsService {
     // }
 
     // API MongoDB
-    url = 'http://localhost:8010/api/assignments';
+    url = 'https://angular-assignments-project-api.onrender.com';
 
     getAssignments(): Observable<Assignment[]> {
-        return this.http.get<Assignment[]>(this.url);
+        return this.http.get<Assignment[]>(this.url + '/api/assignments');
     }
 
     getAssignmentsPagine(page: number, limit: number) {
-        return this.http.get<any>(this.url + '?page=' + page + '&limit=' + limit);
+        return this.http.get<any>(this.url + '/api/assignments' + '?page=' + page + '&limit=' + limit);
 	}
 
     getAssignment(id: number): Observable<Assignment | undefined> {
         // const a: Assignment | undefined = this.http.get<Assignment>(this.url + '/' + id);
         // return of(a);
-        return this.http.get<Assignment>(this.url + '/' + id);
+        return this.http.get<Assignment>(this.url + '/api/assignments' + '/' + id);
     }
 
     getAssignmentsCount(): Observable<number> {
-        return this.http.get<number>('http://localhost:8010/api/assignments/count');
+        return this.http.get<number>(this.url + '/api/assignments' + '/count');
     }
 
     getAssignmentsPagineContent(page: number, limit: number) {
-        return this.http.get<any>('http://localhost:8010/api/assignments/paginate' + '?page=' + page + '&limit=' + limit);
+        return this.http.get<any>(this.url + '/api/assignments/paginate' + '?page=' + page + '&limit=' + limit);
 	}
 
     getAssignmentsLimit(limit: number) {
-        return this.http.get<any>('http://localhost:8010/api/assignments/limit' + '?limit=' + limit);
+        return this.http.get<any>(this.url + '/api/assignments/limit' + '?limit=' + limit);
 	}
 
     addAssignments(assignment: Assignment): Observable<any> {
@@ -135,11 +135,11 @@ export class AssignmentsService {
     }
 
     deleteAllAssignment(): Observable<string> {
-        return this.http.delete<string>('http://localhost:8010/api/assignments/deleteAll');
+        return this.http.delete<string>(this.url + '/api/assignments/deleteAll');
     }
 
     getMatieres(): Observable<Matiere[]> {
-        return this.http.get<Matiere[]>('http://localhost:8010/api/matieres');
+        return this.http.get<Matiere[]>(this.url + '/api/matieres');
     }
 
     populateDBAssignments(): Observable<any> {
